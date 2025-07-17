@@ -10,6 +10,7 @@ androidx-core = "1.16.0"
 androidx-espresso = "3.6.1"
 androidx-lifecycle = "2.9.1"
 androidx-testExt = "1.2.1"
+androidx-material = "1.12.0"
 composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 kotlin = "2.2.0"
@@ -32,6 +33,9 @@ androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle
 
 # NAVIGATION
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+# MATERIAL
+androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
