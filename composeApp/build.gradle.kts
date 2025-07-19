@@ -68,6 +68,9 @@ kotlin {
             implementation(libs.ktor.client.negotiation)
             implementation(libs.kotlin.serialization)
 
+            // VIEWMODEL
+            implementation(libs.viewmodel.compose)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
