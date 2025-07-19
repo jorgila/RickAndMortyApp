@@ -1,7 +1,7 @@
 package com.jorgila.rickandmortyapp.domain.model
 
 data class CharacterModel(
-    val id: String,
+    val id: Int,
     val isAlive: Boolean,
     val image: String
 )
