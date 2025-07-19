@@ -71,6 +71,11 @@ kotlin {
             // VIEWMODEL
             implementation(libs.viewmodel.compose)
 
+            // COIL
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor2)
+            implementation(libs.coil.network.ktor3)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
