@@ -1,6 +1,7 @@
 package com.jorgila.rickandmortyapp.di
 
 import com.jorgila.rickandmortyapp.data.remote.ApiService
+import com.jorgila.rickandmortyapp.data.remote.paging.CharactersPagingSource
 import com.jorgila.rickandmortyapp.data.repositoryImpl.RepositoryImpl
 import com.jorgila.rickandmortyapp.domain.repository.Repository
 import io.ktor.client.HttpClient
@@ -30,4 +31,5 @@ val dataModule = module {
     }
     factoryOf(::ApiService)
     factory<Repository>{RepositoryImpl(get())}
+    factoryOf(::CharactersPagingSource)
 }

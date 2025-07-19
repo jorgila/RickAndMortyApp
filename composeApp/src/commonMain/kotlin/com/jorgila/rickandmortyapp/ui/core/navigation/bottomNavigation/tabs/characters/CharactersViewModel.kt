@@ -3,6 +3,7 @@ package com.jorgila.rickandmortyapp.ui.core.navigation.bottomNavigation.tabs.cha
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
+import com.jorgila.rickandmortyapp.domain.repository.Repository
 import com.jorgila.rickandmortyapp.domain.useCase.GetRandomCharacterUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -12,7 +13,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CharactersViewModel(private val getRandomCharacterUseCase: GetRandomCharacterUseCase) : ViewModel() {
+class CharactersViewModel(
+    private val getRandomCharacterUseCase: GetRandomCharacterUseCase,
+    private val repository: Repository
+) : ViewModel() {
     private val _state = MutableStateFlow(CharactersState())
     val state : StateFlow<CharactersState> get() = _state
 
@@ -26,6 +30,15 @@ class CharactersViewModel(private val getRandomCharacterUseCase: GetRandomCharac
                     characterOfTheDay = result
                 )
             }
+        }
+        getAllCharacters()
+    }
+
+    private fun getAllCharacters() {
+        _state.update { state ->
+            state.copy(
+                characters = repository.getAllCharacters()
+            )
         }
     }
 }

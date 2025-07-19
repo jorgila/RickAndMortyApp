@@ -32,6 +32,9 @@ viewmodel = "2.9.1"
 # COIL
 coilCompose = "3.2.0"
 
+# PAGING 3
+pagingComposeCommon = "3.3.0-alpha02-0.5.1"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -71,6 +74,10 @@ viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewm
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-ktor2 = { module = "io.coil-kt.coil3:coil-network-ktor2", version.ref = "coilCompose" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilCompose" }
+
+# PAGING3
+paging-common = { module = "app.cash.paging:paging-common", version.ref = "pagingComposeCommon"}
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
