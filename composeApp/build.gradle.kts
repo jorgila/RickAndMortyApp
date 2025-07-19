@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    // KTOR
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -31,13 +33,19 @@ kotlin {
     sourceSets {
         task("testClasses")
         androidMain.dependencies {
+
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
 
             // KOIN
             implementation(libs.koin.android)
+
+            // KTOR
+            implementation(libs.ktor.client.okhttp)
+
         }
         commonMain.dependencies {
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -54,12 +62,21 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
+
+            // KTOR
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.negotiation)
+            implementation(libs.kotlin.serialization)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         iosMain.dependencies {
-            
+
+            // KTOR
+            implementation(libs.ktor.client.darwin)
+
         }
     }
 }
