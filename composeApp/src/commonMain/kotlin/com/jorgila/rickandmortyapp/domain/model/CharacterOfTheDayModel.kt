@@ -1,0 +1,18 @@
+package com.jorgila.rickandmortyapp.domain.model
+
+import com.jorgila.rickandmortyapp.data.database.entity.CharacterOfTheDayEntity
+
+data class CharacterOfTheDayModel (
+    val characterModel: CharacterModel,
+    val selectedDay: String
+) {
+    fun toEntity(): CharacterOfTheDayEntity {
+        return CharacterOfTheDayEntity(
+            id = characterModel.id,
+            isAlive = characterModel.isAlive,
+            image = characterModel.image,
+            name = characterModel.name,
+            selectedDay = selectedDay
+        )
+    }
+}

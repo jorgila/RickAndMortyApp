@@ -2,6 +2,7 @@ package com.jorgila.rickandmortyapp.ui.core.navigation.bottomNavigation.tabs.cha
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
 import com.jorgila.rickandmortyapp.domain.repository.Repository
 import com.jorgila.rickandmortyapp.domain.useCase.GetRandomCharacterUseCase
@@ -37,7 +38,7 @@ class CharactersViewModel(
     private fun getAllCharacters() {
         _state.update { state ->
             state.copy(
-                characters = repository.getAllCharacters()
+                characters = repository.getAllCharacters().cachedIn(viewModelScope)
             )
         }
     }

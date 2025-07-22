@@ -9,9 +9,19 @@ plugins {
     alias(libs.plugins.composeCompiler)
     // KTOR
     alias(libs.plugins.kotlinxSerialization)
+    // KSP
+    alias(libs.plugins.kspCompose)
+    // ROOM
+    // alias(libs.plugins.room)
 }
 
 kotlin {
+
+    sourceSets.commonMain {
+        kotlin.srcDir("build/generated/ksp/metadata")
+    }
+
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -80,6 +90,15 @@ kotlin {
             implementation(libs.paging.common)
             implementation(libs.paging.compose.common)
 
+            // DATE
+            implementation(libs.kotlinx.datetime)
+
+            // ROOM
+            implementation(libs.room.runtime)
+
+            // SQLITE
+            implementation(libs.androidx.sqlite.bundled)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -124,3 +143,14 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
+ksp {
+    arg("room.schemaLocation", "${projectDir}/schemas")
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.room.compiler)
+    add("kspAndroid",libs.room.compiler)
+    add("kspIosX64",libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+}
