@@ -7,8 +7,10 @@ import com.jorgila.rickandmortyapp.data.database.RickAndMortyDatabase
 import com.jorgila.rickandmortyapp.data.database.entity.CharacterOfTheDayEntity
 import com.jorgila.rickandmortyapp.data.remote.ApiService
 import com.jorgila.rickandmortyapp.data.remote.paging.CharactersPagingSource
+import com.jorgila.rickandmortyapp.data.remote.paging.EpisodesPagingSource
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
 import com.jorgila.rickandmortyapp.domain.model.CharacterOfTheDayModel
+import com.jorgila.rickandmortyapp.domain.model.EpisodeModel
 import com.jorgila.rickandmortyapp.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.asFlow
 class RepositoryImpl(
     private val api: ApiService,
     private val charactersPagingSource: CharactersPagingSource,
+    private val episodesPagingSource: EpisodesPagingSource,
     private val rickAndMortyDatabase: RickAndMortyDatabase
 ) : Repository {
 
@@ -31,7 +34,14 @@ class RepositoryImpl(
     override fun getAllCharacters(): Flow<PagingData<CharacterModel>> {
         return Pager(
             config = PagingConfig(pageSize = MAX_ITEMS, prefetchDistance = PREFETCH_ITEMS),
-            pagingSourceFactory = { charactersPagingSource}
+            pagingSourceFactory = { charactersPagingSource }
+        ).flow
+    }
+
+    override fun getAllEpisodes(): Flow<PagingData<EpisodeModel>> {
+        return Pager(
+            config = PagingConfig(pageSize = MAX_ITEMS, prefetchDistance = PREFETCH_ITEMS),
+            pagingSourceFactory = { episodesPagingSource }
         ).flow
     }
 
