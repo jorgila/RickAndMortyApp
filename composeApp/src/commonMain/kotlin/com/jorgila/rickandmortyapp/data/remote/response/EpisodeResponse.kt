@@ -25,14 +25,14 @@ data class EpisodeResponse(
 
     private fun getVideoUrlFromSeason(season: SeasonEpisode): String {
         return when (season){
-            SeasonEpisode.SEASON_1 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_2 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_3 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_4 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_5 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_6 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.SEASON_7 -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
-            SeasonEpisode.UNKNOWN -> "https://youtu.be/E8cXKMR9a1Q?si=G0i6q8XDb126U4I5"
+            SeasonEpisode.SEASON_1 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_2 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_3 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_4 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_5 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_6 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.SEASON_7 -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
+            SeasonEpisode.UNKNOWN -> "https://firebasestorage.googleapis.com/v0/b/rickandmortyapp-3c3e3.firebasestorage.app/o/Rick%20and%20Morty%20Season%201%20Promos%20-%20Starburns%20Industries%20(1080p%2C%20h264).mp4?alt=media&token=3c29ea11-a191-41ad-bdcb-fe1d1d21902e"
         }
     }
 
