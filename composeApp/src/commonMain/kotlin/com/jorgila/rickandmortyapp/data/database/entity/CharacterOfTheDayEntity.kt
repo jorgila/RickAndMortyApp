@@ -13,7 +13,8 @@ data class CharacterOfTheDayEntity(
     val isAlive: Boolean,
     val image: String,
     val name: String,
-    val selectedDay: String
+    val selectedDay: String,
+    val species: String
 ) {
     fun toDomain(): CharacterOfTheDayModel? {
         return CharacterOfTheDayModel(
@@ -21,7 +22,8 @@ data class CharacterOfTheDayEntity(
                 id = id,
                 isAlive = isAlive,
                 image = image,
-                name = name
+                name = name,
+                species = species
             ),
             selectedDay = selectedDay
         )

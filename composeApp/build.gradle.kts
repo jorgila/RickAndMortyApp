@@ -53,6 +53,9 @@ kotlin {
             // KTOR
             implementation(libs.ktor.client.okhttp)
 
+            // ROOM
+            implementation(libs.room.runtime)
+
         }
         commonMain.dependencies {
 
@@ -108,6 +111,9 @@ kotlin {
             // KTOR
             implementation(libs.ktor.client.darwin)
 
+            // ROOM
+            implementation(libs.room.runtime)
+
         }
     }
 }
@@ -148,9 +154,17 @@ ksp {
 }
 
 dependencies {
-    add("kspCommonMainMetadata", libs.room.compiler)
+//    add("kspCommonMainMetadata", libs.room.compiler)
     add("kspAndroid",libs.room.compiler)
     add("kspIosX64",libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
+}
+
+tasks.matching { it.name.startsWith("compileKotlin") && it.name != "compileKotlinMetadata" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
+tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
 }

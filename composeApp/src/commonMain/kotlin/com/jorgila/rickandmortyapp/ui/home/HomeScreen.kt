@@ -17,7 +17,7 @@ import com.jorgila.rickandmortyapp.ui.core.navigation.bottomNavigation.BottomBar
 import com.jorgila.rickandmortyapp.ui.core.navigation.bottomNavigation.NavigationBottomWrapper
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(mainNavController: NavHostController) {
 
     val items = listOf(BottomBarItem.Episodes(),BottomBarItem.Characters())
     val navController = rememberNavController()
@@ -29,7 +29,7 @@ fun HomeScreen(){
         Box(
             modifier = Modifier.padding(paddingValues = padding)
         ){
-            NavigationBottomWrapper(navController)
+            NavigationBottomWrapper(navController, mainNavController)
         }
     }
 

@@ -16,7 +16,7 @@ junit = "4.13.2"
 kotlin = "2.2.0"
 
 # NAVIGATION
-navigation = "2.9.0-beta03"
+navigation = "2.9.0-beta04"
 
 # KOIN
 koin = "4.1.0"
@@ -39,7 +39,7 @@ pagingComposeCommon = "3.3.0-alpha02-0.5.1"
 kotlinxDateTime = "0.7.1"
 
 # KSP
-ksp = "2.1.21-2.0.1"
+ksp = "2.2.0-2.0.2"
 
 # ROOM
 roomCommon = "2.7.2"

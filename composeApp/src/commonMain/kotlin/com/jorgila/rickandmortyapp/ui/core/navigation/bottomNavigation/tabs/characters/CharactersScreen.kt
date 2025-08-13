@@ -45,11 +45,13 @@ import rickandmortyapp.composeapp.generated.resources.Res
 import rickandmortyapp.composeapp.generated.resources.rickface
 
 @Composable
-fun CharactersScreen(){
+fun CharactersScreen(
+    navigateToDetail: (CharacterModel) -> Unit
+){
     val charactersViewModel = koinViewModel<CharactersViewModel>()
     val state by charactersViewModel.state.collectAsState()
     val characters = state.characters.collectAsLazyPagingItems()
-    CharactersGridList(characters, state)
+    CharactersGridList(characters, state, navigateToDetail = { characterModel -> navigateToDetail(characterModel) })
 }
 
 @Composable
@@ -107,7 +109,11 @@ fun CharacterOfTheDay(characterModel: CharacterModel? = null){
 }
 
 @Composable
-fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, state: CharactersState) {
+fun CharactersGridList(
+    characters: LazyPagingItems<CharacterModel>,
+    state: CharactersState,
+    navigateToDetail: (CharacterModel) -> Unit
+) {
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
         columns = GridCells.Fixed(2),
@@ -150,7 +156,12 @@ fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, state: Chara
                 // Items Load
                 items(characters.itemCount){ position ->
                     characters[position]?.let { characterModel ->
-                        CharacterItemList(characterModel)
+                        CharacterItemList(
+                            characterModel = characterModel,
+                            onItemSelected = { characterModel ->
+                                navigateToDetail(characterModel)
+                            }
+                        )
                     }
                 }
                 if(characters.loadState.append is LoadState.Loading){
@@ -175,7 +186,10 @@ fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, state: Chara
 }
 
 @Composable
-fun CharacterItemList(characterModel: CharacterModel) {
+fun CharacterItemList(
+    characterModel: CharacterModel,
+    onItemSelected: (CharacterModel) -> Unit
+) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(24))
@@ -186,7 +200,7 @@ fun CharacterItemList(characterModel: CharacterModel) {
             )
             .fillMaxWidth()
             .height(150.dp)
-            .clickable {  },
+            .clickable { onItemSelected(characterModel) },
         contentAlignment = Alignment.BottomCenter
     ){
         AsyncImage(
