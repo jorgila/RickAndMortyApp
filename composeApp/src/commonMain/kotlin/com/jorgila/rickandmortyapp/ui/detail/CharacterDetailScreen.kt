@@ -5,14 +5,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,11 +29,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.room.util.TableInfo
 import coil3.compose.AsyncImage
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
+import com.jorgila.rickandmortyapp.domain.model.EpisodeModel
 import com.jorgila.rickandmortyapp.ui.core.ex.aliveBorder
+import com.jorgila.rickandmortyapp.ui.core.navigation.CharacterDetail
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parameterSetOf
@@ -41,13 +51,16 @@ fun CharacterDetailScreen(
     val characterDetailViewModel = koinViewModel<CharacterDetailViewModel>(parameters = { parameterSetOf(characterModel)})
 
     val state by characterDetailViewModel.uiState.collectAsState()
-
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
+            .verticalScroll(scrollState)
     ) {
         MainHeader(characterModel = characterModel)
+        CharacterInformation(characterModel = characterModel)
+        CharacterEpisodesList(episodes = state.episodes)
     }
 
 }
@@ -138,4 +151,66 @@ fun CharacterHeader(
             Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
+
+@Composable
+fun CharacterInformation(characterModel: CharacterModel){
+    ElevatedCard(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text("ABOUT THE CHARACTER")
+            Spacer(modifier = Modifier.height(4.dp))
+            InformationDetail("Origin",characterModel.origin)
+            Spacer(modifier = Modifier.height(2.dp))
+            InformationDetail("Gender",characterModel.gender)
+        }
+    }
+}
+
+@Composable
+fun InformationDetail(
+    title: String,
+    detail: String
+){
+    Row {
+        Text(text = title, color = Color.Black, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(text = detail, color = Color.Green)
+    }
+}
+
+@Composable
+fun CharacterEpisodesList(
+    episodes: List<EpisodeModel>?
+){
+    ElevatedCard(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+    ) {
+        Box(contentAlignment = Alignment.Center){
+            if(episodes==null){
+                CircularProgressIndicator(color=Color.Green)
+            } else {
+                Column {
+                    episodes.forEach { episode ->
+                        EpisodeItem(episode)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun EpisodeItem(
+    episode: EpisodeModel
+){
+        Text(episode.name)
+        Text(episode.episode)
 }

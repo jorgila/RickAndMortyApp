@@ -1,6 +1,7 @@
 package com.jorgila.rickandmortyapp.domain.model
 
 import com.jorgila.rickandmortyapp.data.database.entity.CharacterOfTheDayEntity
+import kotlinx.serialization.json.Json
 
 data class CharacterOfTheDayModel (
     val characterModel: CharacterModel,
@@ -13,7 +14,10 @@ data class CharacterOfTheDayModel (
             image = characterModel.image,
             name = characterModel.name,
             selectedDay = selectedDay,
-            species = characterModel.species
+            species = characterModel.species,
+            gender = characterModel.gender,
+            origin = characterModel.origin,
+            episodes = Json.encodeToString(characterModel.episodes)
         )
     }
 }
