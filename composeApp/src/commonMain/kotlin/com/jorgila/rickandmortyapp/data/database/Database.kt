@@ -10,13 +10,14 @@ import com.jorgila.rickandmortyapp.data.database.entity.CharacterOfTheDayEntity
 const val DATABASE_NAME = "rm_app_database.db"
 
 @Database( entities = [ CharacterOfTheDayEntity::class ], version = 1 )
-@ConstructedBy(RickAndMortyCTor::class)
+@ConstructedBy( RickAndMortyCTor::class )
 abstract class RickAndMortyDatabase:RoomDatabase(){
     // UserPreferencesDao
     abstract fun getPreferencesDao() : UserPreferencesDAO
 
 }
 
-expect object RickAndMortyCTor:RoomDatabaseConstructor<RickAndMortyDatabase>{
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object RickAndMortyCTor: RoomDatabaseConstructor<RickAndMortyDatabase>{
     override fun initialize(): RickAndMortyDatabase
 }

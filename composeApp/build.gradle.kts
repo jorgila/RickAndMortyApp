@@ -12,15 +12,16 @@ plugins {
     // KSP
     alias(libs.plugins.kspCompose)
     // ROOM
-    // alias(libs.plugins.room)
+    alias(libs.plugins.room)
 }
 
 kotlin {
 
+/*
     sourceSets.commonMain {
         kotlin.srcDir("build/generated/ksp/metadata")
     }
-
+*/
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -41,7 +42,7 @@ kotlin {
     }
     
     sourceSets {
-        task("testClasses")
+        tasks.register("testClasses")
         androidMain.dependencies {
 
             implementation(compose.preview)
@@ -145,26 +146,14 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
     debugImplementation(compose.uiTooling)
-}
-
-ksp {
-    arg("room.schemaLocation", "${projectDir}/schemas")
-}
-
-dependencies {
-//    add("kspCommonMainMetadata", libs.room.compiler)
     add("kspAndroid",libs.room.compiler)
     add("kspIosX64",libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
-}
-
-tasks.matching { it.name.startsWith("compileKotlin") && it.name != "compileKotlinMetadata" }.configureEach {
-    dependsOn("kspCommonMainKotlinMetadata")
-}
-
-tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata" }.configureEach {
-    dependsOn("kspCommonMainKotlinMetadata")
 }
