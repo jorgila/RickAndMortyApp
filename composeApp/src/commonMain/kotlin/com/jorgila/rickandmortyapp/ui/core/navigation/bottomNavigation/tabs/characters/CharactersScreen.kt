@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +39,9 @@ import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
 import coil3.compose.AsyncImage
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
+import com.jorgila.rickandmortyapp.ui.core.BackgroundPrimaryColor
+import com.jorgila.rickandmortyapp.ui.core.Green
+import com.jorgila.rickandmortyapp.ui.core.components.TextTitle
 import com.jorgila.rickandmortyapp.ui.core.ex.vertical
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -66,7 +70,7 @@ fun CharacterOfTheDay(characterModel: CharacterModel? = null){
                 modifier = Modifier.fillMaxSize()
             ){
                 CircularProgressIndicator(
-                    color = Color.Green
+                    color = Green
                 )
             }
         } else {
@@ -74,7 +78,7 @@ fun CharacterOfTheDay(characterModel: CharacterModel? = null){
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Green.copy(alpha = 0.5f))
+                        .background(Green.copy(alpha = 0.5f))
                 )
                 AsyncImage(
                     model = characterModel.image,
@@ -115,7 +119,10 @@ fun CharactersGridList(
     navigateToDetail: (CharacterModel) -> Unit
 ) {
     LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundPrimaryColor)
+            .padding(horizontal = 16.dp),
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -125,7 +132,8 @@ fun CharactersGridList(
             span = { GridItemSpan(2) }
         ) {
             Column {
-                Text(text = "Characters", fontSize = 24.sp)
+                TextTitle("Characters")
+                Spacer(modifier = Modifier.height(6.dp))
                 CharacterOfTheDay(state.characterOfTheDay)
             }
         }
@@ -141,7 +149,7 @@ fun CharactersGridList(
                     ){
                         CircularProgressIndicator(
                             modifier = Modifier.size(64.dp),
-                            color = Color.Red
+                            color = Green
                         )
                     }
                 }
@@ -175,7 +183,7 @@ fun CharactersGridList(
                         ){
                             CircularProgressIndicator(
                                 modifier = Modifier.size(64.dp),
-                                color = Color.Red
+                                color = Green
                             )
                         }
                     }
@@ -195,7 +203,7 @@ fun CharacterItemList(
             .clip(RoundedCornerShape(24))
             .border(
                 width = 2.dp,
-                color = Color.Green,
+                color = Green,
                 shape = RoundedCornerShape(0,24,0,24)
             )
             .fillMaxWidth()

@@ -17,6 +17,8 @@ plugins {
 
 kotlin {
 
+    jvmToolchain(21)
+
 /*
     sourceSets.commonMain {
         kotlin.srcDir("build/generated/ksp/metadata")
@@ -29,6 +31,8 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+
+    jvm("desktop")
     
     listOf(
         iosX64(),
@@ -42,7 +46,13 @@ kotlin {
     }
     
     sourceSets {
+        val desktopMain by getting
+
+
         tasks.register("testClasses")
+
+
+
         androidMain.dependencies {
 
             implementation(compose.preview)
@@ -56,6 +66,9 @@ kotlin {
 
             // ROOM
             implementation(libs.room.runtime)
+
+            // SPLASH
+            implementation(libs.core.splashscreen)
 
         }
         commonMain.dependencies {
@@ -116,6 +129,12 @@ kotlin {
             implementation(libs.room.runtime)
 
         }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.skiko.awt)
+            implementation(libs.skiko.awt.runtime.macos.arm64)
+            implementation(libs.kotlinx.coroutines.swing)
+        }
     }
 }
 
@@ -141,8 +160,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
@@ -156,4 +175,19 @@ dependencies {
     add("kspIosX64",libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
+}
+
+compose.desktop{
+    application {
+        mainClass = "com.jorgila.rickandmortyapp.MainKt"
+        nativeDistributions {
+            targetFormats(
+                TargetFormat.Dmg,
+                TargetFormat.Msi,
+                TargetFormat.Deb,
+            )
+            packageName = "com.jorgila.rickandmortyapp"
+            version = "1.0.0"
+        }
+    }
 }
