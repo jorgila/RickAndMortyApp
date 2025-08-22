@@ -2,6 +2,7 @@ package com.jorgila.rickandmortyapp.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,13 +32,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.room.util.TableInfo
 import coil3.compose.AsyncImage
 import com.jorgila.rickandmortyapp.domain.model.CharacterModel
 import com.jorgila.rickandmortyapp.domain.model.EpisodeModel
+import com.jorgila.rickandmortyapp.isDesktop
 import com.jorgila.rickandmortyapp.ui.core.BackgroundPrimaryColor
 import com.jorgila.rickandmortyapp.ui.core.BackgroundSecondaryColor
 import com.jorgila.rickandmortyapp.ui.core.BackgroundTertiaryColor
@@ -45,16 +46,17 @@ import com.jorgila.rickandmortyapp.ui.core.Green
 import com.jorgila.rickandmortyapp.ui.core.Pink
 import com.jorgila.rickandmortyapp.ui.core.components.TextTitle
 import com.jorgila.rickandmortyapp.ui.core.ex.aliveBorder
-import com.jorgila.rickandmortyapp.ui.core.navigation.CharacterDetail
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parameterSetOf
 import rickandmortyapp.composeapp.generated.resources.Res
 import rickandmortyapp.composeapp.generated.resources.space
+import rickandmortyapp.composeapp.generated.resources.ic_back
 
 @Composable
 fun CharacterDetailScreen(
-    characterModel: CharacterModel
+    characterModel: CharacterModel,
+    onBackPressed: () -> Unit
 ) {
     val characterDetailViewModel = koinViewModel<CharacterDetailViewModel>(parameters = { parameterSetOf(characterModel)})
 
@@ -66,7 +68,7 @@ fun CharacterDetailScreen(
             .background(BackgroundPrimaryColor)
             .verticalScroll(scrollState)
     ) {
-        MainHeader(characterModel = characterModel)
+        MainHeader(characterModel = characterModel, onBackPressed = onBackPressed)
         Spacer(modifier=Modifier.height(16.dp))
         Column(
             modifier = Modifier
@@ -83,7 +85,8 @@ fun CharacterDetailScreen(
 
 @Composable
 fun MainHeader(
-    characterModel: CharacterModel
+    characterModel: CharacterModel,
+    onBackPressed: () -> Unit
 ){
     Box(
         modifier = Modifier
@@ -96,6 +99,17 @@ fun MainHeader(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+        if(isDesktop()){
+            Icon(
+                painter = painterResource(Res.drawable.ic_back),
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(24.dp)
+                    .clickable { onBackPressed() }
+            )
+        }
         CharacterHeader(characterModel = characterModel)
     }
 }

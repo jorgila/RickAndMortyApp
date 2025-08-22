@@ -131,9 +131,8 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.skiko.awt)
-            implementation(libs.skiko.awt.runtime.macos.arm64)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.cio)
         }
     }
 }
@@ -175,6 +174,7 @@ dependencies {
     add("kspIosX64",libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspDesktop", libs.room.compiler)
 }
 
 compose.desktop{
